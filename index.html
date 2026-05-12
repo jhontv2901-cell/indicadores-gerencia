@@ -39,8 +39,17 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
 .login-screen.hidden { opacity:0; pointer-events:none; }
 .login-card {
   background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px; padding:40px 36px; width:100%; max-width:400px;
+  border-radius:20px; padding:40px 36px; width:90%; max-width:420px;
   backdrop-filter:blur(20px);
+}
+@media (max-width:768px) {
+  .login-card { padding:32px 24px; width:92%; }
+  .login-logo img { width:160px; }
+  .login-logo h2 { font-size:18px; }
+  .login-logo p { font-size:13px; }
+  .login-field input { font-size:16px; padding:14px; }
+  .login-btn { font-size:16px; padding:14px; }
+  .login-field label { font-size:14px; }
 }
 .login-logo { text-align:center; margin-bottom:28px; }
 .login-logo img { width:140px; object-fit:contain; }
@@ -438,17 +447,8 @@ let currentUserData = null;
 let isCollapsed = false;
 
 // ── AUTH STATE ──
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const snap = await getDoc(doc(db, 'users', user.uid));
-    if (snap.exists()) {
-      currentUserData = { uid: user.uid, email: user.email, ...snap.data() };
-      showApp();
-    } else {
-      await signOut(auth);
-    }
-  }
-});
+// Sign out any existing session on page load — always show login
+signOut(auth).catch(() => {});
 
 // ── LOGIN ──
 window.doLogin = async function() {
