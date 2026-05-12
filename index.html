@@ -43,13 +43,15 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   backdrop-filter:blur(20px);
 }
 @media (max-width:768px) {
-  .login-card { padding:32px 24px; width:92%; }
-  .login-logo img { width:160px; }
-  .login-logo h2 { font-size:18px; }
-  .login-logo p { font-size:13px; }
-  .login-field input { font-size:16px; padding:14px; }
-  .login-btn { font-size:16px; padding:14px; }
-  .login-field label { font-size:14px; }
+  .login-screen { padding:16px; }
+  .login-card { padding:36px 28px; width:100%; max-width:100%; border-radius:16px; }
+  .login-logo img { width:180px; }
+  .login-logo h2 { font-size:20px; margin-top:14px; }
+  .login-logo p { font-size:14px; }
+  .login-field { margin-bottom:18px; }
+  .login-field label { font-size:15px; margin-bottom:8px; }
+  .login-field input { font-size:16px; padding:15px 16px; border-radius:12px; }
+  .login-btn { font-size:16px; padding:15px; border-radius:12px; margin-top:12px; }
 }
 .login-logo { text-align:center; margin-bottom:28px; }
 .login-logo img { width:140px; object-fit:contain; }
@@ -248,42 +250,19 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
 @media (max-width:768px) {
   body { flex-direction:column; }
   .mobile-header { display:flex; }
-  .app { flex-direction:column; }
-  .main { height: calc(100vh - 52px); }
-  .content { padding:8px; height:100%; }
-  .report-frame { flex:1; height:100%; min-height:calc(100vh - 120px); }
-  .report-frame iframe { height:100%; min-height:calc(100vh - 120px); }
-  .empty-state h2 { font-size:14px; }
-  .empty-state p { font-size:12px; }
   .sidebar { position:fixed; left:0; top:0; bottom:0; transform:translateX(-100%); transition:transform var(--transition); z-index:20; width:var(--sidebar-w) !important; }
   .sidebar.mobile-open { transform:translateX(0); }
   .collapse-btn { display:none; }
   .topbar { display:none; }
+  .content { padding:8px; }
+  .report-frame { min-height:calc(100vh - 80px); }
+  .report-frame iframe { min-height:calc(100vh - 80px); }
   .last-update { display:none; }
   .form-row { grid-template-columns:1fr; }
-
-  /* Rotate hint */
-  .rotate-hint {
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    position:fixed; inset:0; background:#16113A; z-index:300; gap:16px;
-    color:white; font-size:14px; text-align:center; padding:24px;
-  }
-  .rotate-hint svg { width:48px; height:48px; stroke:var(--accent-light); fill:none; stroke-width:1.5; animation:rotateAnim 2s infinite; }
-  @keyframes rotateAnim { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(90deg)} }
-  .rotate-hint h3 { font-size:16px; font-weight:500; }
-  .rotate-hint p { color:rgba(255,255,255,0.5); font-size:13px; }
-  .rotate-hint.hidden { display:none; }
 }
 </style>
 </head>
 <body>
-
-<!-- ROTATE HINT -->
-<div class="rotate-hint hidden" id="rotateHint">
-  <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-  <h3>Rota tu dispositivo</h3>
-  <p>Para ver los reportes correctamente,<br>usa el modo horizontal</p>
-</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -486,9 +465,6 @@ function checkOrientation() {
     hint.classList.add('hidden');
   }
 }
-window.addEventListener('resize', checkOrientation);
-window.addEventListener('orientationchange', checkOrientation);
-
 // Sign out any existing session on page load — always show login
 signOut(auth).catch(() => {});
 
@@ -592,7 +568,6 @@ window.loadReport = function(area, report, url, el) {
   document.getElementById('emptyState').style.display = 'none';
   updateTimestamp();
   closeMobile();
-  checkOrientation();
 };
 
 // ── ADMIN ──
