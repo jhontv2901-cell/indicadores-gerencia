@@ -35,6 +35,7 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   display:flex; align-items:center; justify-content:center;
   background:linear-gradient(135deg,#16113A 0%,#2D1B69 50%,#16113A 100%);
   position:fixed; inset:0; z-index:100; transition:opacity 0.4s;
+  padding:0;
 }
 .login-screen.hidden { opacity:0; pointer-events:none; }
 .login-card {
@@ -43,15 +44,21 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   backdrop-filter:blur(20px);
 }
 @media (max-width:768px) {
-  .login-screen { padding:16px; }
-  .login-card { padding:36px 28px; width:100%; max-width:100%; border-radius:16px; }
-  .login-logo img { width:180px; }
-  .login-logo h2 { font-size:20px; margin-top:14px; }
-  .login-logo p { font-size:14px; }
-  .login-field { margin-bottom:18px; }
+  .login-screen { align-items:stretch; padding:0; }
+  .login-card { 
+    width:100%; max-width:100%; height:100vh;
+    border-radius:0; border:none;
+    padding:60px 28px 40px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .login-logo { margin-bottom:36px; }
+  .login-logo img { width:200px; }
+  .login-logo h2 { font-size:22px; margin-top:16px; }
+  .login-logo p { font-size:15px; }
+  .login-field { margin-bottom:20px; }
   .login-field label { font-size:15px; margin-bottom:8px; }
-  .login-field input { font-size:16px; padding:15px 16px; border-radius:12px; }
-  .login-btn { font-size:16px; padding:15px; border-radius:12px; margin-top:12px; }
+  .login-field input { font-size:17px; padding:16px; border-radius:12px; }
+  .login-btn { font-size:17px; padding:16px; border-radius:12px; margin-top:16px; }
 }
 .login-logo { text-align:center; margin-bottom:28px; }
 .login-logo img { width:140px; object-fit:contain; }
@@ -82,7 +89,7 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
 .login-error.visible { display:block; }
 
 /* ── APP ── */
-.app { display:flex; height:100vh; width:100%; opacity:0; pointer-events:none; transition:opacity 0.4s; }
+.app { display:flex; height:100vh; width:100%; opacity:0; pointer-events:none; transition:opacity 0.4s; overflow:hidden; }
 .app.visible { opacity:1; pointer-events:all; }
 
 /* ── SIDEBAR ── */
@@ -158,7 +165,7 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
 .logout-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
 
 /* ── MAIN ── */
-.main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; background:var(--bg-main); }
+.main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; min-height:0; background:var(--bg-main); }
 .topbar {
   height:var(--header-h); background:var(--bg-topbar); border-bottom:1px solid var(--border-light);
   display:flex; align-items:center; padding:0 20px; gap:12px; flex-shrink:0;
@@ -178,7 +185,7 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
 .tb-btn.accent { background:var(--accent); border-color:var(--accent); color:#fff; }
 .tb-btn.accent:hover { background:#6D28D9; }
 .last-update { font-size:11px; color:#888; font-family:'DM Mono',monospace; white-space:nowrap; }
-.content { flex:1; padding:16px; overflow:hidden; display:flex; flex-direction:column; }
+.content { flex:1; padding:16px; overflow:hidden; display:flex; flex-direction:column; min-height:0; }
 .report-frame { flex:1; border-radius:12px; overflow:hidden; border:1px solid var(--border-light); background:#fff; }
 .report-frame iframe { width:100%; height:100%; border:none; display:block; }
 .empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:#888; }
@@ -254,9 +261,10 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   .sidebar.mobile-open { transform:translateX(0); }
   .collapse-btn { display:none; }
   .topbar { display:none; }
-  .content { padding:8px; }
-  .report-frame { min-height:calc(100vh - 80px); }
-  .report-frame iframe { min-height:calc(100vh - 80px); }
+  .content { padding:8px; flex:1; min-height:0; }
+  .report-frame { flex:1; min-height:0; height:calc(100vh - 60px); }
+  .report-frame iframe { height:100%; min-height:0; }
+  .empty-state { height:calc(100vh - 60px); }
   .last-update { display:none; }
   .form-row { grid-template-columns:1fr; }
 }
