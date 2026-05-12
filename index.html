@@ -43,23 +43,6 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   border-radius:20px; padding:40px 36px; width:90%; max-width:420px;
   backdrop-filter:blur(20px);
 }
-@media (max-width:768px) {
-  .login-screen { align-items:stretch; padding:0; }
-  .login-card { 
-    width:100%; max-width:100%; height:100vh;
-    border-radius:0; border:none;
-    padding:60px 28px 40px;
-    display:flex; flex-direction:column; justify-content:center;
-  }
-  .login-logo { margin-bottom:36px; }
-  .login-logo img { width:200px; }
-  .login-logo h2 { font-size:22px; margin-top:16px; }
-  .login-logo p { font-size:15px; }
-  .login-field { margin-bottom:20px; }
-  .login-field label { font-size:15px; margin-bottom:8px; }
-  .login-field input { font-size:17px; padding:16px; border-radius:12px; }
-  .login-btn { font-size:17px; padding:16px; border-radius:12px; margin-top:16px; }
-}
 .login-logo { text-align:center; margin-bottom:28px; }
 .login-logo img { width:140px; object-fit:contain; }
 .login-logo h2 { color:white; font-size:16px; font-weight:500; margin-top:12px; }
@@ -267,6 +250,23 @@ body { font-family:'DM Sans',sans-serif; background:#16113A; height:100vh; overf
   .empty-state { height:calc(100vh - 60px); }
   .last-update { display:none; }
   .form-row { grid-template-columns:1fr; }
+
+  /* Login mobile */
+  .login-screen { align-items:stretch !important; }
+  .login-card { 
+    width:100% !important; max-width:100% !important; height:100vh !important;
+    border-radius:0 !important; border:none !important;
+    padding:60px 28px 40px !important;
+    display:flex !important; flex-direction:column !important; justify-content:center !important;
+  }
+  .login-logo { margin-bottom:36px !important; }
+  .login-logo img { width:200px !important; }
+  .login-logo h2 { font-size:22px !important; margin-top:16px !important; }
+  .login-logo p { font-size:15px !important; }
+  .login-field { margin-bottom:20px !important; }
+  .login-field label { font-size:15px !important; margin-bottom:8px !important; }
+  .login-field input { font-size:17px !important; padding:16px !important; border-radius:12px !important; }
+  .login-btn { font-size:17px !important; padding:16px !important; border-radius:12px !important; margin-top:16px !important; }
 }
 </style>
 </head>
