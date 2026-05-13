@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#16113A">
+<title>Indicadores de Gerencia · Talsa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --sb:#16113A;--ac:#7C3AED;--acl:#A78BFA;
+  --bg:#F4F4F6;--wh:#fff;--bd:#E8E8EC;
+  --tr:.28s cubic-bezier(.4,0,.2,1);
+}
+html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;}
+body{background:var(--sb);}
+
+/* LOGIN */
+#loginScreen{
+  position:fixed;inset:0;z-index:100;
+  background:linear-gradient(135deg,#16113A 0%,#2D1B69 50%,#16113A 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+#loginScreen.off{display:none;}
+.lcard{
+  width:min(440px,94vw);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);
+  border-radius:24px;padding:48px 40px;backdrop-filter:blur(20px);
+}
+.llogo{text-align:center;margin-bottom:36px;}
+.llogo img{width:160px;object-fit:contain;}
+.llogo h2{color:#fff;font-size:20px;font-weight:500;margin-top:14px;}
+.llogo p{color:rgba(255,255,255,.4);font-size:13px;margin-top:5px;}
+.lerr{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px 16px;color:#FCA5A5;font-size:14px;margin-bottom:18px;display:none;}
+.lerr.on{display:block;}
+.lf{margin-bottom:20px;}
+.lf label{display:block;font-size:14px;color:rgba(255,255,255,.6);margin-bottom:8px;}
+.lf input{width:100%;padding:14px 16px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#fff;font-size:16px;font-family:inherit;outline:none;transition:border-color .2s;}
+.lf input:focus{border-color:var(--acl);}
+.lf input::placeholder{color:rgba(255,255,255,.25);}
+#lbtn{width:100%;padding:15px;background:var(--ac);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:8px;transition:background .2s;}
+#lbtn:hover{background:#6D28D9;}
+#lbtn:disabled{background:#555;cursor:not-allowed;}
+
+/* APP */
+#app{display:none;height:100vh;overflow:hidden;}
+#app.on{display:flex;}
+
+/* SIDEBAR */
+.sb{width:260px;height:100vh;background:var(--sb);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:width var(--tr);}
+.sb.col{width:64px;}
+.sbrand{height:56px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;}
+.sbrand img{width:34px;height:34px;object-fit:contain;flex-shrink:0;}
+.sbrand-t{overflow:hidden;white-space:nowrap;}
+.sbrand-t h1{font-size:12px;font-weight:600;color:#fff;}
+.sbrand-t p{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;}
+.colbtn{margin:10px 12px;background:none;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:7px;cursor:pointer;color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;transition:background var(--tr),color var(--tr);flex-shrink:0;}
+.colbtn:hover{background:rgba(255,255,255,.06);color:#fff;}
+.colbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+.nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 0 12px;}
+.nav::-webkit-scrollbar{width:3px;}
+.nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.nlbl{font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:14px 18px 5px;white-space:nowrap;overflow:hidden;transition:opacity var(--tr);}
+.sb.col .nlbl{opacity:0;}
+.ni{position:relative;display:flex;align-items:center;gap:11px;padding:9px 16px;cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;transition:background var(--tr),color var(--tr);white-space:nowrap;overflow:hidden;user-select:none;}
+.ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);}
+.ni.act{background:rgba(124,58,237,.22);color:#fff;}
+.ni.act::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--acl);border-radius:0 3px 3px 0;}
+.ni-ic{width:20px;height:20px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ni-lb{flex:1;overflow:hidden;text-overflow:ellipsis;}
+.ni-ar{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;transition:transform var(--tr);opacity:.4;}
+.ni.open .ni-ar{transform:rotate(90deg);opacity:.7;}
+.ni.locked{opacity:.3;cursor:not-allowed;}
+.ni.locked:hover{background:none;}
+.sm{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1);background:rgba(0,0,0,.12);}
+.sm.open{max-height:300px;}
+.si{display:flex;align-items:center;gap:9px;padding:8px 16px 8px 46px;cursor:pointer;color:rgba(255,255,255,.42);font-size:12.5px;transition:background var(--tr),color var(--tr);white-space:nowrap;overflow:hidden;}
+.si:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.8);}
+.si.act{color:var(--acl);}
+.sdot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.6;}
+.si.act .sdot{opacity:1;background:var(--acl);}
+.sbfoot{padding:12px 14px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;}
+.ucard{display:flex;align-items:center;gap:10px;overflow:hidden;}
+.uav{width:30px;height:30px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;flex-shrink:0;}
+.uinfo{overflow:hidden;white-space:nowrap;flex:1;}
+.uinfo strong{display:block;font-size:12px;font-weight:500;color:#fff;}
+.uinfo span{font-size:11px;color:rgba(255,255,255,.3);}
+.logbtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.3);padding:4px;transition:color .2s;}
+.logbtn:hover{color:rgba(255,255,255,.7);}
+.logbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;background:var(--bg);}
+.topbar{height:56px;background:var(--wh);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0;}
+.bc{display:flex;align-items:center;gap:6px;font-size:13px;color:#888;overflow:hidden;white-space:nowrap;}
+.bc .cur{color:#1A1035;font-weight:500;}
+.tbr{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.tbb{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#F4F4F6;border:1px solid var(--bd);border-radius:8px;font-size:12px;font-family:inherit;color:#1A1035;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.tbb:hover{background:#EBEBEF;}
+.tbb svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
+.tbb.ac{background:var(--ac);border-color:var(--ac);color:#fff;}
+.tbb.ac:hover{background:#6D28D9;}
+.lupd{font-size:11px;color:#888;font-family:monospace;white-space:nowrap;}
+.content{flex:1;padding:16px;overflow:hidden;display:flex;flex-direction:column;min-height:0;}
+.rf{flex:1;min-height:0;border-radius:12px;overflow:hidden;border:1px solid var(--bd);background:#fff;}
+.rf iframe{width:100%;height:100%;border:none;display:block;}
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#888;}
+.empty-ic{width:56px;height:56px;background:#F0EEFF;border-radius:16px;display:flex;align-items:center;justify-content:center;}
+.empty-ic svg{width:28px;height:28px;stroke:var(--ac);fill:none;stroke-width:1.5;stroke-linecap:round;}
+.empty h2{font-size:15px;font-weight:500;color:#1A1035;}
+.empty p{font-size:13px;text-align:center;max-width:280px;line-height:1.6;}
+
+/* MOBILE */
+.mobhdr{display:none;height:52px;background:var(--sb);align-items:center;padding:0 14px;gap:12px;flex-shrink:0;}
+.hambtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);display:flex;align-items:center;padding:6px;}
+.hambtn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+.mobt{font-size:15px;font-weight:500;color:#fff;flex:1;}
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9;}
+.ovl.on{display:block;}
+
+@media(max-width:768px){
+  #app{flex-direction:column;}
+  .mobhdr{display:flex;}
+  .sb{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform var(--tr);z-index:20;width:260px!important;}
+  .sb.mob{transform:translateX(0);}
+  .colbtn{display:none;}
+  .topbar{display:none;}
+  .main{height:calc(100vh - 52px);display:flex;flex-direction:column;}
+  .content{flex:1;padding:8px;min-height:0;display:flex;flex-direction:column;}
+  .rf{flex:1;min-height:0;}
+  .rf iframe{height:100%;}
+  .lupd{display:none;}
+  /* LOGIN FULL SCREEN MOBILE */
+  #loginScreen{align-items:stretch;}
+  .lcard{width:100%;border-radius:0;border:none;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:40px 28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="lcard">
+    <div class="llogo">
+      <img src="https://jhontv2901-cell.github.io/indicadores-gerencia/icon-192.png" alt="Talsa">
+      <h2>Indicadores de Gerencia</h2>
+      <p>Talsa Grape Farms · Grupo Rocío</p>
+    </div>
+    <div class="lerr" id="lerr">Usuario o contraseña incorrectos</div>
+    <div class="lf">
+      <label>Usuario</label>
+      <input type="text" id="luser" placeholder="tu.usuario" autocomplete="username">
+    </div>
+    <div class="lf">
+      <label>Contraseña</label>
+      <input type="password" id="lpass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button id="lbtn">Ingresar</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="mobhdr">
+    <button class="hambtn" id="hambtn"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <span class="mobt" id="mobt">Indicadores</span>
+  </div>
+  <div class="ovl" id="ovl"></div>
+  <aside class="sb" id="sb">
+    <div class="sbrand">
+      <img src="https://jhontv2901-cell.github.io/indicadores-gerencia/icon-192.png" alt="Talsa">
+      <div class="sbrand-t"><h1>Indicadores de Gerencia</h1><p>Grape Farms · Grupo Rocío</p></div>
+    </div>
+    <button class="colbtn" id="colbtn"><svg id="colico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <nav class="nav" id="nav"></nav>
+    <div class="sbfoot">
+      <div class="ucard">
+        <div class="uav" id="uav">--</div>
+        <div class="uinfo"><strong id="uname">-</strong><span id="urole">-</span></div>
+        <button class="logbtn" id="logbtn" title="Salir"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <div class="bc"><span id="bca">-</span><span style="opacity:.4">›</span><span class="cur" id="bcr">Selecciona un reporte</span></div>
+      <div class="tbr">
+        <span class="lupd" id="lupd"></span>
+        <button class="tbb" id="refbtn"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>Actualizar</button>
+        <button class="tbb ac" id="fsbtn"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>Pantalla completa</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="rf" id="rf" style="display:none"><iframe id="pbi" allowfullscreen title="Power BI"></iframe></div>
+      <div class="empty" id="empty">
+        <div class="empty-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <h2>Bienvenido al módulo</h2>
+        <p>Selecciona un área y reporte del menú</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// USUARIOS — edita aquí para agregar/cambiar
+// ══════════════════════════════════════════════
+const USUARIOS = [
+  { usuario:'admin',     clave:'Talsa2026#',    nombre:'Administrador',       rol:'admin',   areas:['rc','ac','gp','tgf','cc','com'] },
+  { usuario:'gerencia',  clave:'Gerencia123#',  nombre:'Gerencia General',    rol:'gerente', areas:['rc','ac','gp','tgf','cc','com'] },
+  { usuario:'calidad',   clave:'Calidad123#',   nombre:'Jefe de Calidad',     rol:'area',    areas:['ac'] },
+  { usuario:'operaciones',clave:'Oper123#',     nombre:'Jefe Operaciones',    rol:'area',    areas:['rc','cc'] }
+];
+
+// ══════════════════════════════════════════════
+// REPORTES — edita aquí para agregar/cambiar
+// ══════════════════════════════════════════════
+const REPORTES = {
+  rc: [
+    { nombre:'Planeamiento y Operaciones', url:'https://app.powerbi.com/view?r=eyJrIjoiNjM3OTdiMmUtZjI1MC00ZjUwLWFjNTQtZGVhNjgwOWJiNzI3IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' }
+  ],
+  ac: [
+    { nombre:'Evaluación Poda',          url:'https://app.powerbi.com/view?r=eyJrIjoiYmYyMGE0YTEtMGZkNC00ZmRkLTgzMzYtOTk2Zjg3N2YyZTkzIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Estación Meteorológica',   url:'https://app.powerbi.com/view?r=eyJrIjoiZTljMzgzZjQtMmRkMy00ZmFjLWExOGEtOTRiMjI1ODk5ZmMyIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' }
+  ],
+  gp:  [],
+  tgf: [],
+  cc:  [],
+  com: []
+};
+
+// ══════════════════════════════════════════════
+const AREAS = {
+  rc:'Rendimiento y Costos', ac:'Aseguramiento Calidad',
+  gp:'Gerencia Planeamiento', tgf:'Control Gestión TGF',
+  cc:'Campaña Cosecha', com:'Comercial TGF'
+};
+const ICONS = {
+  rc:'<svg class="ni-ic" viewBox="0 0 24 24"><path d="M3 18l6-6 4 4 8-8"/><path d="M17 10h4v4"/></svg>',
+  ac:'<svg class="ni-ic" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>',
+  gp:'<svg class="ni-ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  tgf:'<svg class="ni-ic" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+  cc:'<svg class="ni-ic" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>',
+  com:'<svg class="ni-ic" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
+};
+
+let CU = null;
+let isCol = false;
+
+// LOGIN
+document.getElementById('lbtn').onclick = login;
+document.getElementById('lpass').onkeydown = e => { if(e.key==='Enter') login(); };
+document.getElementById('luser').onkeydown = e => { if(e.key==='Enter') document.getElementById('lpass').focus(); };
+
+function login() {
+  const u = document.getElementById('luser').value.trim().toLowerCase();
+  const p = document.getElementById('lpass').value;
+  const found = USUARIOS.find(x => x.usuario.toLowerCase()===u && x.clave===p);
+  if(!found) { document.getElementById('lerr').classList.add('on'); return; }
+  document.getElementById('lerr').classList.remove('on');
+  CU = found;
+  document.getElementById('loginScreen').classList.add('off');
+  document.getElementById('app').classList.add('on');
+  const ini = CU.nombre.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('uav').textContent = ini;
+  document.getElementById('uname').textContent = CU.nombre;
+  const rl = {admin:'Administrador',gerente:'Gerente General',area:'Por Área'};
+  document.getElementById('urole').textContent = rl[CU.rol]||CU.rol;
+  buildMenu();
+  updateTs();
+}
+
+document.getElementById('logbtn').onclick = () => {
+  CU = null;
+  document.getElementById('app').classList.remove('on');
+  document.getElementById('loginScreen').classList.remove('off');
+  document.getElementById('luser').value='';
+  document.getElementById('lpass').value='';
+  document.getElementById('rf').style.display='none';
+  document.getElementById('empty').style.display='flex';
+};
+
+function buildMenu() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = '<div class="nlbl">Áreas</div>';
+  Object.entries(AREAS).forEach(([k,label]) => {
+    const hasAccess = CU.rol==='admin'||CU.rol==='gerente'||CU.areas.includes(k);
+    const reports = REPORTES[k]||[];
+    const d = document.createElement('div');
+    d.innerHTML = `
+      <div class="ni${!hasAccess?' locked':''}" id="g${k}">
+        ${ICONS[k]}<span class="ni-lb">${label}</span>
+        <svg class="ni-ar" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="sm" id="s${k}">
+        ${hasAccess && reports.length
+          ? reports.map(r=>`<div class="si" data-url="${r.url}" data-area="${label}" data-name="${r.nombre}"><span class="sdot"></span>${r.nombre}</div>`).join('')
+          : `<div class="si" style="opacity:.35;cursor:default"><span class="sdot"></span>${hasAccess?'Próximamente':'Sin acceso'}</div>`
+        }
+      </div>`;
+    if(hasAccess) d.querySelector('.ni').onclick = () => toggleG(k);
+    d.querySelectorAll('.si[data-url]').forEach(el => {
+      el.onclick = () => loadRep(el.dataset.area, el.dataset.name, el.dataset.url, el);
+    });
+    nav.appendChild(d);
+  });
+}
+
+function toggleG(k) {
+  const sm = document.getElementById('s'+k);
+  const btn = document.getElementById('g'+k);
+  const open = sm.classList.contains('open');
+  document.querySelectorAll('.sm').forEach(s=>s.classList.remove('open'));
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('open','act'));
+  if(!open){sm.classList.add('open');btn.classList.add('open','act');}
+}
+
+function loadRep(area, name, url, el) {
+  document.querySelectorAll('.si').forEach(i=>i.classList.remove('act'));
+  el.classList.add('act');
+  document.getElementById('bca').textContent = area;
+  document.getElementById('bcr').textContent = name;
+  document.getElementById('mobt').textContent = name;
+  document.getElementById('pbi').src = url;
+  document.getElementById('rf').style.display = 'block';
+  document.getElementById('empty').style.display = 'none';
+  updateTs();
+  closeMob();
+}
+
+// CONTROLS
+document.getElementById('colbtn').onclick = () => {
+  isCol = !isCol;
+  document.getElementById('sb').classList.toggle('col', isCol);
+  document.getElementById('colico').innerHTML = isCol ? '<path d="M9 6l6 6-6 6"/>' : '<path d="M15 6l-6 6 6 6"/>';
+};
+document.getElementById('refbtn').onclick = () => {
+  const f = document.getElementById('pbi'); const s = f.src; f.src=''; setTimeout(()=>{f.src=s;},100); updateTs();
+};
+document.getElementById('fsbtn').onclick = () => {
+  const f = document.getElementById('rf');
+  if(!document.fullscreenElement) f.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+};
+document.getElementById('hambtn').onclick = () => {
+  document.getElementById('sb').classList.toggle('mob');
+  document.getElementById('ovl').classList.toggle('on');
+};
+document.getElementById('ovl').onclick = closeMob;
+function closeMob() {
+  document.getElementById('sb').classList.remove('mob');
+  document.getElementById('ovl').classList.remove('on');
+}
+function updateTs() {
+  const n=new Date(); const p=x=>String(x).padStart(2,'0');
+  document.getElementById('lupd').textContent=`Act. ${p(n.getDate())}/${p(n.getMonth()+1)} ${p(n.getHours())}:${p(n.getMinutes())}`;
+}
+</script>
+</body>
+</html>
