@@ -282,9 +282,22 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;backgroun
 // ══════════════════════════════════════════════
 const USUARIOS = [
   { usuario:'admin',       clave:'Talsa2026#',   nombre:'Administrador',       rol:'admin',   areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] },
-  { usuario:'gerencia',    clave:'Gerencia123#', nombre:'Gerencia General',    rol:'gerente', areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] },
-  { usuario:'calidad',     clave:'Calidad123#',  nombre:'Jefe de Calidad',     rol:'area',    areas:['ac'] },
-  { usuario:'operaciones', clave:'Oper123#',     nombre:'Jefe Operaciones',    rol:'area',    areas:['rc','ccam'] }
+  { usuario:'mguzman@talsa.com.pe',    clave:'Moises123#', nombre:'Gerencia',    rol:'gerente', areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] },
+  { usuario:'ccilloniz@talsa.com.pe',     clave:'Cristobal123#',  nombre:'Gerencia',     rol:'gerente',    areas:['ac','rc'] },
+  { usuario:'spariona@procom.pe', clave:'Susy123#',     nombre:'Jefe de Fundo',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'gvelasco@agritac.pe', clave:'Gonzalo123#',     nombre:'Jefe de Fundo',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'jchonta@talsa.com.pe', clave:'Julio123#',     nombre:'Jefe de Fundo',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'fchero@talsa.com.pe', clave:'Franchesca123#',     nombre:'Coordinador',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'jhuayanca@talsa.com.pe', clave:'Jose123#',     nombre:'Coordinador',    rol:'admin',    areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] },
+  { usuario:'jhuaman@procom.pe', clave:'Jesus123#',     nombre:'Ingeniero de Fundo',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'cventura@agritac.pe', clave:'Carmen123#',     nombre:'Ingeniero de Fundo',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'jmagallanes@talsa.com.pe', clave:'Jonathan123#',     nombre:'Jefe de RR.HH',    rol:'area',    areas:['ac','gh'] },
+  { usuario:'rh@talsa.com.pe', clave:'Rh123#',     nombre:'Recursos Humanos',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'fertirriego@talsa.com.pe', clave:'Fertirriego123#',     nombre:'Fertirriego',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'sanidad@talsa.com.pe', clave:'Sanidad123#',     nombre:'Sanidad',    rol:'area',    areas:['san'] },
+  { usuario:'calidad@talsa.com.pe', clave:'Calidad123#',     nombre:'Calidad',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'Indicador@talsa.com.pe', clave:'Talsa123#',     nombre:'Talsa',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'planeamiento@talsa.com.pe', clave:'Planeamiento123#',     nombre:'Planeamiento',    rol:'area',    areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] }
 ];
 
 // ══════════════════════════════════════════════
@@ -298,9 +311,9 @@ const REPORTES = {
   ac: [
     { nombre:'Evaluación Poda',              url:'https://app.powerbi.com/view?r=eyJrIjoiYmYyMGE0YTEtMGZkNC00ZmRkLTgzMzYtOTk2Zjg3N2YyZTkzIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiOTNjZTExMmMtMWE2MS00M2M1LWE1NzAtM2IzOTE2ZGJiZDViIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
     { nombre:'Estación Meteorológica',       url:'https://app.powerbi.com/view?r=eyJrIjoiMTg3MmJmMzUtZThiOC00NGVhLTk4ODgtZWQ4Y2Y1NjFlY2JlIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
-    { nombre:'Evaluaciones Fenológicas',     url:'', urlAnterior:'' },
-    { nombre:'Evaluación Raleo',             url:'', urlAnterior:'' },
-    { nombre:'Evaluación Crecimiento Brote', url:'', urlAnterior:'' }
+    { nombre:'Evaluaciones Fenológicas',     url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiYmQyZmFlZWYtMTQ0MS00MWIyLTlhNWEtMGY2YWQ3NWMyZTg5IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Evaluación Raleo',             url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiMzE1YzM1ZWMtYjkxYS00ZTM5LWIyNzItMmM2NjhlNGVhNDg5IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Evaluación Crecimiento Brote', url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiMDdlNzc0NTUtYjdlYy00NDdiLThkODYtNWNjMTZkNTgzYWEyIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' }
   ],
   san: [
     { nombre:'Seguimiento Plagas y Enfermedades', url:'', urlAnterior:'' }
@@ -325,10 +338,10 @@ const REPORTES = {
     { nombre:'Evaluación Calidad',          url:'', urlAnterior:'' }
   ],
   ccam: [
-    { nombre:'Brix Apertura',              url:'', urlAnterior:'' },
-    { nombre:'Evaluación Defectos',        url:'', urlAnterior:'' },
-    { nombre:'Brix Monitoreo',             url:'', urlAnterior:'' },
-    { nombre:'Salida de Camiones',         url:'', urlAnterior:'' },
+    { nombre:'Brix Apertura',              url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiNDk3MDEzYTgtYjdjMy00NTA2LWJmNTItZDllMGIwYWNiODlkIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Evaluación Defectos',        url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiM2FlMDM3MmUtZWYwMi00Mjg1LTg5MGUtZGJkZGI3NWNmNGE4IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Brix Monitoreo',             url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiZjg0YmM5ZDYtMTQ2OC00NTZkLTljN2ItNTY2ZmYxOTk1MmMxIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Salida de Camiones',         url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiMTEyZjA4NTItYWFjZC00ZmYzLTlhYzAtOTZjNTEyZGM2YmY1IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
     { nombre:'Reporte de Jabas Cosechadas',url:'', urlAnterior:'' },
     { nombre:'Resumen de Jabas Cosechadas',url:'', urlAnterior:'' }
   ],
@@ -336,7 +349,7 @@ const REPORTES = {
     { nombre:'Reporte de Gestión Comercial', url:'', urlAnterior:'' }
   ],
   plan: [
-    { nombre:'Avance 01', url:'', urlAnterior:'' },
+    { nombre:'Evaluaciones Fenológicas', url:'https://app.powerbi.com/view?r=eyJrIjoiODc0MDkwODYtMmYxZS00ZGNmLTkwOGMtYmMwYjY3MmI3ZjcyIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
     { nombre:'Avance 02', url:'', urlAnterior:'' },
     { nombre:'Avance 03', url:'', urlAnterior:'' }
   ]
