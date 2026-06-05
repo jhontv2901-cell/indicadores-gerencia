@@ -297,7 +297,7 @@ const USUARIOS = [
   { usuario:'ddiaz@talsa.com.pe', clave:'Danilo123#',     nombre:'Sanidad',    rol:'area',    areas:['ac','rc'] },
   { usuario:'yascona@talsa.com.pe', clave:'Yanneth123#',     nombre:'Recursos Humanos',    rol:'area',    areas:['ac','gh'] },
   { usuario:'chquinteros@talsa.com.pe', clave:'Christiam123#',     nombre:'Reclutamiento',    rol:'area',    areas:['ac','gh'] },
-  { usuario:'calidad@procom.pe', clave:'Miguel123#',     nombre:'Calidad',    rol:'area',    areas:['ac','rc'] },
+  { usuario:'calidad@procom.pe', clave:'Miguel123#',     nombre:'Calidad',    rol:'area',    areas:['ac','rc'],[camm]  },
   { usuario:'aferreyros@talsa.com.pe', clave:'Amanda123#',     nombre:'Ingeniera de Fundo',    rol:'area',    areas:['ac','rc'] },
   { usuario:'royardo@talsa.com.pe', clave:'Rocio123#',     nombre:'Planeamiento',    rol:'area',    areas:['rc','ac','san','fert','gh','gp','ccp','ccam','com','plan'] },
   { usuario:'Indicador@talsa.com.pe', clave:'Talsa123#',     nombre:'Talsa',    rol:'area',    areas:['ac','rc'] },
@@ -318,7 +318,7 @@ const REPORTES = {
   ac: [
     { nombre:'Evaluación Poda',              url:'https://app.powerbi.com/view?r=eyJrIjoiYmYyMGE0YTEtMGZkNC00ZmRkLTgzMzYtOTk2Zjg3N2YyZTkzIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiOTNjZTExMmMtMWE2MS00M2M1LWE1NzAtM2IzOTE2ZGJiZDViIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
     { nombre:'Estación Meteorológica',       url:'https://app.powerbi.com/view?r=eyJrIjoiMTg3MmJmMzUtZThiOC00NGVhLTk4ODgtZWQ4Y2Y1NjFlY2JlIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
-    { nombre:'Evaluaciones Fenológicas',     url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiYmQyZmFlZWYtMTQ0MS00MWIyLTlhNWEtMGY2YWQ3NWMyZTg5IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Evaluaciones Fenológicas',     url:'https://app.powerbi.com/view?r=eyJrIjoiYmQyZmFlZWYtMTQ0MS00MWIyLTlhNWEtMGY2YWQ3NWMyZTg5IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
     { nombre:'Evaluación Raleo',             url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiMzE1YzM1ZWMtYjkxYS00ZTM5LWIyNzItMmM2NjhlNGVhNDg5IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
     { nombre:'Evaluación Crecimiento Brote', url:'https://app.powerbi.com/view?r=eyJrIjoiMDdlNzc0NTUtYjdlYy00NDdiLThkODYtNWNjMTZkNTgzYWEyIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' }
   ],
@@ -346,10 +346,10 @@ const REPORTES = {
     { nombre:'Evaluación Calidad',          url:'', urlAnterior:'' }
   ],
   ccam: [
-    { nombre:'Brix Apertura',              url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiNDk3MDEzYTgtYjdjMy00NTA2LWJmNTItZDllMGIwYWNiODlkIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
-    { nombre:'Evaluación Defectos',        url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiM2FlMDM3MmUtZWYwMi00Mjg1LTg5MGUtZGJkZGI3NWNmNGE4IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
-    { nombre:'Brix Monitoreo',             url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiZjg0YmM5ZDYtMTQ2OC00NTZkLTljN2ItNTY2ZmYxOTk1MmMxIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
-    { nombre:'Salida de Camiones',         url:'', urlAnterior:'https://app.powerbi.com/view?r=eyJrIjoiMTEyZjA4NTItYWFjZC00ZmYzLTlhYzAtOTZjNTEyZGM2YmY1IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9' },
+    { nombre:'Brix Apertura',              url:'https://app.powerbi.com/view?r=eyJrIjoiNDk3MDEzYTgtYjdjMy00NTA2LWJmNTItZDllMGIwYWNiODlkIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
+    { nombre:'Evaluación Defectos',        url:'https://app.powerbi.com/view?r=eyJrIjoiM2FlMDM3MmUtZWYwMi00Mjg1LTg5MGUtZGJkZGI3NWNmNGE4IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
+    { nombre:'Brix Monitoreo',             url:'https://app.powerbi.com/view?r=eyJrIjoiZjg0YmM5ZDYtMTQ2OC00NTZkLTljN2ItNTY2ZmYxOTk1MmMxIiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
+    { nombre:'Salida de Camiones',         url:'https://app.powerbi.com/view?r=eyJrIjoiMTEyZjA4NTItYWFjZC00ZmYzLTlhYzAtOTZjNTEyZGM2YmY1IiwidCI6IjZjMzc5OWFhLTZkMWUtNDFkOC04YTRiLThjNDVjZDBhN2JhZiIsImMiOjR9', urlAnterior:'' },
     { nombre:'Reporte de Jabas Cosechadas',url:'', urlAnterior:'' },
     { nombre:'Resumen de Jabas Cosechadas',url:'', urlAnterior:'' }
   ],
